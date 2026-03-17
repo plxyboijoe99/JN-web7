@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Horizontal Slide Website</title>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: white;
+}
+
+/* Horizontal slide container */
+#container {
+  display: flex;
+  width: 200vw;
+  transition: transform 0.5s ease;
+}
+
+.page {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  position: relative;
+  overflow-y: auto;
+}
+
+/* ---------------- Page 1 ---------------- */
+#page1 {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 60px;
+  position: relative;
+  transition: background-image 1s ease-in-out;
+}
+
+#page1::before {
+  content: "";
+  position: absolute;
+  top:0; left:0;
+  width: 100%; height:100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 0;
+}
+
+#hero, #menu, section {
+  position: relative;
+  z-index: 1;
+  width: 90%; max-width: 800px;
+  text-align: center;
+}
+
+#menu { margin: 50px 0; }
+#menu button {
+  background: #fff; color: #000; border: none;
+  padding: 10px 20px; margin: 0 10px;
+  border-radius: 5px; cursor: pointer;
+  font-weight: bold;
+}
+#menu button:hover { background: #ddd; }
+
+section.page1-section {
+  background: rgba(255,255,255,0.9);
+  color: #000; border-radius: 10px;
+  padding: 20px; margin-bottom: 30px;
+  display: none;
+}
+
+.page1-btn-inline {
+  position: relative; z-index: 2;
+  background-color: black; color: white;
+  padding: 12px 25px; border-radius: 8px;
+  border: none; cursor: pointer; font-size: 1.1em;
+  margin-top: 30px;
+  transition: all 0.3s;
+}
+.page1-btn-inline:hover { background: #333; }
+
+/* Entrance animation */
+.animate-on-load {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.8s ease-out;
+}
+.animate-on-load.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------------- Page 2 ---------------- */
+#page2 {
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  position: relative;
+}
+
+.backBtn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  font-weight: bold;
+}
+
+/* Box and title styles */
+.box-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box-title {
+  margin: 20px 0 10px 0;
+  font-size: 1.8em;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.8s ease-out;
+}
+
+.box {
+  width: 60%;
+  max-width: 350px;
+  margin: 15px 0;
+  height: 450px; /* vertical boxes */
+  border: 2px solid white;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: #111;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 25px rgba(255,255,255,0.2);
+  border-color: #fff;
+}
+
+.box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top:0; left:0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #page2 { padding: 30px 10px; }
+  .box { height: 300px; }
+  .box-title { font-size: 1.4em; }
+}
+</style>
+</head>
+<body>
+
+<div id="container">
+
+  <!-- PAGE 1 -->
+  <div class="page" id="page1">
+    <div id="hero">
+      <h1 class="animate-on-load">Explore the life you want to live</h1>
+      <p class="animate-on-load">Put your money to work</p>
+    </div>
+
+    <div id="menu">
+      <button onclick="showSection('offerings')">Offerings</button>
+      <button onclick="showSection('about')">About</button>
+      <button onclick="showSection('services')">Services</button>
+      <button onclick="showSection('contact')">Contact</button>
+    </div>
+
+    <section id="offerings" class="page1-section">
+      <h2>Our Offerings</h2><p>We provide personalized solutions to grow your wealth and lifestyle.</p>
+    </section>
+
+    <section id="about" class="page1-section">
+      <h2>About Us</h2><p>We’re dedicated to delivering quality and impact in every service we offer.</p>
+    </section>
+
+    <section id="services" class="page1-section">
+      <h2>Our Services</h2>
+      <ul>
+        <li>Web Design & Development</li>
+        <li>AI Content Creation</li>
+        <li>Consulting & Support</li>
+      </ul>
+    </section>
+
+    <section id="contact" class="page1-section">
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:info@example.com">info@example.com</a></p>
+    </section>
+
+    <button class="page1-btn-inline animate-on-load" onclick="goToPage2()">Go to Page 2 →</button>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page" id="page2">
+    <button class="backBtn animate-on-load" onclick="goToPage1()">← Back to Page 1</button>
+
+    <div class="box-container">
+
+      <h2 class="box-title animate-on-load">Investments & Growth</h2>
+      <div class="box animate-on-load">
+        <img src="https://i.pinimg.com/736x/0e/49/3e/0e493e57cb0a7a414a2f850557f9a399.jpg">
+        <img src="https://i.pinimg.com/736x/f7/5f/58/f75f58135980f2581a9fa1288002158a.jpg">
+        <img src="https://i.pinimg.com/736x/80/90/58/80905854507a67d4f4e27e232a95307d.jpg">
+      </div>
+
+      <h2 class="box-title animate-on-load">Learning & Skills</h2>
+      <div class="box animate-on-load">
+        <img src="https://i.pinimg.com/736x/60/c8/b0/60c8b070572634171d55803f5aedf1a4.jpg">
+        <img src="https://i.pinimg.com/736x/54/85/f8/5485f86d8cf994b4270330a516c255f1.jpg">
+        <img src="https://i.pinimg.com/736x/a0/b6/63/a0b663aada9acd941bb6c763294d1b65.jpg">
+      </div>
+
+      <h2 class="box-title animate-on-load">Lifestyle & Experiences</h2>
+      <div class="box animate-on-load">
+        <img src="https://i.pinimg.com/originals/4f/9a/c4/4f9ac468def63abff26055d7c25eec42.png">
+        <img src="https://i.pinimg.com/736x/84/de/2b/84de2bf9a5bbf4986c110e6ba003b512.jpg">
+        <img src="https://i.pinimg.com/1200x/8d/12/5d/8d125d246dc98564f6af7896e7e7b9df.jpg">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ---------------- Page 1 Animations ----------------
+window.addEventListener('load', ()=>{
+  document.querySelectorAll('#page1 .animate-on-load').forEach((el,i)=>{
+    setTimeout(()=>el.classList.add('active'), i*200);
+  });
+});
+
+// ---------------- Page 1 Background Rotation ----------------
+const page1Backgrounds = [
+  "https://i.pinimg.com/736x/8f/32/e6/8f32e6c618e8403e021534b4bc1119c2.jpg",
+  "https://i.pinimg.com/1200x/01/0b/8e/010b8e1feeae3f8aef7b055a70c6169b.jpg",
+  "https://i.pinimg.com/1200x/f1/31/1a/f1311a2c5c85fd9984a80a6bd9910795.jpg",
+  "https://i.pinimg.com/736x/19/a0/b7/19a0b762f4fe6ef28c542aca91eb876c.jpg"
+];
+let bgIndex = 0;
+setInterval(()=>{
+  bgIndex = (bgIndex + 1) % page1Backgrounds.length;
+  document.getElementById('page1').style.backgroundImage = `url(${page1Backgrounds[bgIndex]})`;
+}, 3000);
+
+// ---------------- Page 1 Sections ----------------
+function showSection(id) {
+  ['offerings','about','services','contact'].forEach(sec=>{
+    document.getElementById(sec).style.display='none';
+  });
+  document.getElementById(id).style.display='block';
+}
+
+// ---------------- Page Navigation ----------------
+function goToPage2() {
+  document.getElementById('container').style.transform = 'translateX(-100vw)';
+  document.querySelectorAll('#page2 .animate-on-load').forEach((el,i)=>{
+    setTimeout(()=>el.classList.add('active'), i*200);
+  });
+}
+
+function goToPage1() {
+  document.getElementById('container').style.transform = 'translateX(0)';
+}
+
+// ---------------- Page 2 Image Rotation ----------------
+const currentIndex=[0,0,0];
+function showImage(box,i){
+  const images=box.getElementsByTagName('img');
+  for(let j=0;j<images.length;j++){
+    images[j].style.opacity=(j===i)?'1':'0';
+  }
+}
+document.querySelectorAll('.box').forEach((box,i)=>showImage(box,0));
+setInterval(()=>{
+  document.querySelectorAll('.box').forEach((box,i)=>{
+    currentIndex[i]=(currentIndex[i]+1)%box.getElementsByTagName('img').length;
+    showImage(box,currentIndex[i]);
+  });
+},3000);
+</script>
+
+</body>
+</html>
